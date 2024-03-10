@@ -1,0 +1,308 @@
+<body>
+    <style>
+        html,
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        .atomicat-heading-title {
+            white-space: unset !important;
+        }
+
+        body {
+            padding-bottom: 200px !important;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid white;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            position: fixed;
+            background-color: black;
+            width: 100%;
+            z-index: 10;
+            margin-bottom: 200px;
+            top: 0;
+        }
+
+        #header img {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 1200px) {
+            #header img {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #header img {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        #content {
+            padding-top: 100px;
+        }
+
+        #photo-1 img {
+            width: 100%;
+        }
+
+        .balance-box {
+            background-color: #5a3c9f;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            right: 0;
+            margin-right: 5px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+                "Helvetica Neue", sans-serif;
+            font-weight: 500;
+            font-size: 28px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .balance-box {
+                transform: scale(0.85);
+            }
+        }
+
+        .image-container {
+            margin-bottom: 25px;
+            position: relative;
+            scroll-margin-top: 100px;
+        }
+
+        .double-tap-image {
+            width: 100%; /* Adjust as needed */
+            display: block;
+        }
+
+        .heart-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 68px; /* Adjust size of the heart */
+            color: transparent;
+            text-shadow: white 0px 0px 0px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out; /* Adjust timing to your preference */
+            /* Ensure the heart icon is positioned correctly but initially hidden */
+            display: block; /* or inline-block, depending on your layout */
+            pointer-events: none; /* Ignore clicks */
+        }
+
+        #tutorial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: fixed;
+            z-index: 5;
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease-out;
+            opacity: 1; /* Ensure the element is fully visible initially */
+        }
+
+        #tutorial-instructions {
+            width: 90%;
+            margin-bottom: 15px;
+        }
+
+        #tutorial-text {
+            width: 90%;
+        }
+
+        #start-button,
+        #get-your-money {
+            background-color: #5a3c9f;
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+                "Helvetica Neue", sans-serif;
+            font-weight: 500;
+            margin: auto;
+            padding: 12px;
+            width: 140px;
+            text-transform: uppercase;
+            font-size: large;
+            border: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #get-your-money {
+            width: 200px;
+            text-align: center;
+        }
+
+        #photo-4 {
+            padding: 200px 0 200px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <div id="header">
+        <img
+            src="https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/LlkgcH9968614.png"
+        />
+    </div>
+    <div id="tutorial">
+        <img
+            id="tutorial-instructions"
+            src="https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/l/azmMgA7524077.jpeg"
+        />
+        <img
+            id="tutorial-text"
+            src="https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/CXLrbP7891364.png"
+        />
+        <button id="start-button">Start</button>
+    </div>
+    <div id="content">
+        <div id="photo-1" class="image-container" data-flag="0">
+            <img
+                class="double-tap-image"
+                src="https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/QYswQM3815049.jpeg"
+            />
+            <div class="heart-icon">❤️</div>
+        </div>
+
+        <div class="balance-box">Balance: $<span id="balance">33.82</span></div>
+
+        <div id="photo-4" class="image-container" data-flag="0">
+            <a id="get-your-money">Get your money</a>
+        </div>
+    </div>
+    <script>
+        function getRandomFloatInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function getBalanceValue() {
+            let balance = document.querySelector("#balance");
+            let balanceValue = parseFloat(balance.innerHTML);
+            return balanceValue;
+        }
+
+        function changePhoto(newPhotoSrc) {
+            let photoElement = document.querySelector(".double-tap-image");
+            photoElement.src =  newPhotoSrc;
+            console.log('Changing photo!');
+        }
+
+        function scrollToNextPhoto(elementId, offset = -100) {
+            // offset parameter allows you to customize how much higher you want to land
+            // Extract the numeric part of the elementId (assuming the format is 'photo-N')
+            const currentNumber = parseInt(elementId.replace("photo-", ""), 10);
+
+            // Calculate the next photo's number
+            const nextNumber = currentNumber + 1;
+
+            // Construct the next photo's ID
+            const nextPhotoId = `photo-${nextNumber}`;
+
+            // Find the next element by its ID
+            const nextElement = document.getElementById(nextPhotoId);
+
+            // If the next element exists, scroll to it smoothly
+            if (nextElement) {
+                nextElement.scrollIntoView({ behavior: "smooth" });
+            } else {
+                console.log("Next element not found");
+            }
+        }
+
+        function updateBalance() {
+            let balance = document.querySelector("#balance");
+            let incrementVaule = getRandomFloatInRange(5, 12);
+            let updatedBalanceValue = getBalanceValue() + incrementVaule;
+            balance.innerHTML = updatedBalanceValue.toFixed(2);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var lastTap = 0;
+            var imageContainers = document.querySelectorAll(".image-container");
+            var doubleTapSound = document.getElementById("doubleTapSound");
+            let photoIndex = 0;
+            let photoSrc = [
+                "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/EYSXeB3781182.jpeg",
+                "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/xJlJMK5128729.jpeg",
+            ];
+
+            // Function to handle showing and hiding the heart icon
+            function toggleHeart(heartIcon) {
+                heartIcon.style.opacity = "1";
+                // Hide the heart icon after 1 second
+                setTimeout(function () {
+                    heartIcon.style.opacity = "0";
+                }, 1000);
+            }
+
+            imageContainers.forEach(function (container) {
+                container.addEventListener("touchend", function (event) {
+                    var currentTime = new Date().getTime();
+                    var tapLength = currentTime - lastTap;
+                    if (tapLength < 500 && tapLength > 0) {
+                        // Double tap detected
+
+                        //console.log(liked);
+                        setTimeout(function () {
+                            //scrollToNextPhoto(container.getAttribute('id'));
+                            if (photoIndex < 2) {
+                                changePhoto(photoSrc[photoIndex]);
+                            }
+                            photoIndex += 1;
+                        }, 1500);
+                        updateBalance();
+                        toggleHeart(container.querySelector(".heart-icon"));
+                    }
+
+                    lastTap = currentTime;
+                });
+
+                container.addEventListener("dblclick", function (event) {
+                    setTimeout(function () {
+                        //scrollToNextPhoto(container.getAttribute('id'));
+                        if (photoIndex < 2) {
+                            changePhoto(photoSrc[photoIndex]);
+                        }
+                        photoIndex += 1;
+                    }, 1500);
+                    updateBalance();
+                    toggleHeart(container.querySelector(".heart-icon"));
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document
+            .getElementById("start-button")
+            .addEventListener("click", function () {
+                var tutorial = document.getElementById("tutorial");
+                tutorial.style.opacity = "0"; // Start the fading effect
+                // Wait for the transition to finish before hiding the element
+                setTimeout(function () {
+                    tutorial.style.display = "none";
+                    scrollToNextPhoto("photo-0");
+                }, 500); // This duration should match the CSS transition duration
+            });
+    </script>
+</body>
