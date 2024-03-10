@@ -3,7 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>DEVELOPMENT</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body>
         <style>
@@ -19,7 +25,7 @@
             }
 
             body {
-                padding-bottom: 200px !important;
+                padding-bottom: 0px !important;
             }
 
             #header {
@@ -59,7 +65,7 @@
 
             #tutorial {
                 padding-top: 90px;
-                margin-bottom: 25px;
+                margin-bottom: 5px;
             }
 
             #photo-1 img {
@@ -68,15 +74,12 @@
 
             .balance-box {
                 background-color: #5a3c9f;
-                padding: 20px;
+                padding: 15px;
                 border-radius: 10px;
                 color: white;
-                right: 0;
-                margin-right: 5px;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-                    "Helvetica Neue", sans-serif;
-                font-weight: 500;
+                margin-bottom: 5px;
+                font-family: Montserrat;
+                font-weight: 400;
                 font-size: 28px;
                 text-transform: uppercase;
                 text-align: center;
@@ -89,7 +92,7 @@
             }
 
             .image-container {
-                margin-bottom: 25px;
+                margin-bottom: 3px;
                 position: relative;
                 scroll-margin-top: 100px;
                 display: inline-block;
@@ -227,6 +230,9 @@
             </div>
         </div>
         <div id="content">
+            <div class="balance-box">
+                Balance: $<span id="balance">0.00</span>
+            </div>
             <div id="photo-1" class="image-container" data-flag="0">
                 <img
                     class="double-tap-image"
@@ -234,86 +240,93 @@
                 />
                 <div class="heart-icon">❤️</div>
             </div>
-
-            <div class="balance-box">
-                Balance: $<span id="balance">33.82</span>
-            </div>
-
-            <div id="photo-4" class="image-container" data-flag="0">
-                <a id="get-your-money">Get your money</a>
-            </div>
         </div>
-            <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+        <script>
+            function sleep(ms) {
+                return new Promise((resolve) => setTimeout(resolve, ms));
+            }
 
-        function getRandomFloatInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
+            function getRandomFloatInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
 
-        function getBalanceValue() {
-            const balanceElement = document.querySelector("#balance");
-            return parseFloat(balanceElement.textContent);
-        }
+            function getBalanceValue() {
+                const balanceElement = document.querySelector("#balance");
+                return parseFloat(balanceElement.textContent);
+            }
 
-        async function changePhoto(newPhotoSrc) {
-            const photoElement = document.querySelector(".double-tap-image");
-            photoElement.src = newPhotoSrc;
-        }
+            async function changePhoto(newPhotoSrc) {
+                const photoElement =
+                    document.querySelector(".double-tap-image");
+                photoElement.src = newPhotoSrc;
+            }
 
-        async function toggleImageState(imageContainerId) {
-            const container = document.getElementById(imageContainerId);
-            if (!container) return;
+            async function toggleImageState(imageContainerId) {
+                const container = document.getElementById(imageContainerId);
+                if (!container) return;
 
-            const flag = container.getAttribute("data-flag");
-            const isOverlayActive = flag === "1";
-            container.classList.toggle("black-overlay", !isOverlayActive);
-            container.setAttribute("data-flag", isOverlayActive ? "0" : "1");
-        }
+                const flag = container.getAttribute("data-flag");
+                const isOverlayActive = flag === "1";
+                container.classList.toggle("black-overlay", !isOverlayActive);
+                container.setAttribute(
+                    "data-flag",
+                    isOverlayActive ? "0" : "1"
+                );
+            }
 
-        function updateBalance() {
-            const balanceElement = document.querySelector("#balance");
-            const incrementValue = 11.1;
-            const currentBalance = getBalanceValue();
-            balanceElement.textContent = (currentBalance + incrementValue).toFixed(2);
-        }
+            function updateBalance() {
+                const balanceElement = document.querySelector("#balance");
+                const incrementValue = 19.555;
+                const currentBalance = getBalanceValue();
+                balanceElement.textContent = (
+                    currentBalance + incrementValue
+                ).toFixed(2);
+            }
 
-        function toggleHeart(heartIcon) {
-            heartIcon.style.opacity = "1";
-            setTimeout(() => { heartIcon.style.opacity = "0"; }, 550);
-        }
+            function toggleHeart(heartIcon) {
+                heartIcon.style.opacity = "1";
+                setTimeout(() => {
+                    heartIcon.style.opacity = "0";
+                }, 550);
+            }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            let lastTap = 0;
-            let photoIndex = 0;
-            const photoSrc = [
-                "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/EYSXeB3781182.jpeg",
-                "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/xJlJMK5128729.jpeg",
-            ];
-            const imageContainers = document.querySelectorAll(".image-container");
+            document.addEventListener("DOMContentLoaded", () => {
+                let lastTap = 0;
+                let photoIndex = 0;
+                const photoSrc = [
+                    "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/EYSXeB3781182.jpeg",
+                    "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/xJlJMK5128729.jpeg",
+                    "https://media.atomicatpages.com/u/StlMsITZzhTRIXt34Y17ulof2K12/Pictures/mvQHSW2341287.jpeg",
+                ];
+                const imageContainers =
+                    document.querySelectorAll(".image-container");
 
-            imageContainers.forEach(container => {
-                container.addEventListener("touchend", async (event) => {
-                    const currentTime = new Date().getTime();
-                    const tapLength = currentTime - lastTap;
-                    if (tapLength < 250 && tapLength > 0) {
-                        toggleHeart(container.querySelector(".heart-icon"));
-                        updateBalance();
-                        await sleep(900);
-                        if (photoIndex < photoSrc.length) {
-                            await toggleImageState("photo-1");
-                            await sleep(200);
-                            await toggleImageState("photo-1");
-                            await changePhoto(photoSrc[photoIndex++]);
+                imageContainers.forEach((container) => {
+                    container.addEventListener("touchend", async (event) => {
+                        const currentTime = new Date().getTime();
+                        const tapLength = currentTime - lastTap;
+                        if (tapLength < 250 && tapLength > 0) {
+                            toggleHeart(container.querySelector(".heart-icon"));
+                            updateBalance();
+                            await sleep(900);
+                            if (photoIndex <= photoSrc.length) {
+                                if (photoIndex < photoSrc.length) {
+                                    await toggleImageState("photo-1");
+                                    await sleep(200);
+                                    await toggleImageState("photo-1");
+                                    await changePhoto(photoSrc[photoIndex++]);
+                                } else {
+                                    await 1000;
+                                    window.location.href =
+                                        "http://www.like2earn.com/";
+                                }
+                            }
                         }
-                        
-                    }
-                    lastTap = currentTime;
+                        lastTap = currentTime;
+                    });
                 });
             });
-        });
-    </script>
+        </script>
 
         <script>
             document
